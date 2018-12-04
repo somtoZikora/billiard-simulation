@@ -1,1 +1,3 @@
-# billiard-simulation
+# Billiard Simulation
+
+To run, open index.html.
