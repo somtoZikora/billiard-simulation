@@ -1,7 +1,7 @@
 const scene = new THREE.Scene();
 const canvas = document.getElementById('canvas');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
-const camera = new THREE.PerspectiveCamera(75, canvas.width / canvas.clientHeight, 0.1, 2000);
+const camera = new THREE.PerspectiveCamera(75, canvas.width / canvas.height, 0.1, 2000);
 const ambientLight = new THREE.AmbientLight(0x404040);
 const controls = new THREE.TrackballControls(camera, canvas);
 
