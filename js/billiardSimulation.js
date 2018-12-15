@@ -60,6 +60,28 @@ addTableFoot({
   z: -tableFootDimensions.depth / 2 - tableTopDimensions.depth / 2,
 });
 
+const cushionDimensions = { x: dimensions.cushionX, y: dimensions.cushionY };
+addCushion({
+  y: tableTopDimensions.height / 2 + cushionDimensions.x.height / 2,
+  z: cushionDimensions.x.depth / 2 - tableTopDimensions.depth / 2,
+  axis: 'x',
+});
+addCushion({
+  y: -(tableTopDimensions.height / 2 + cushionDimensions.x.height / 2),
+  z: cushionDimensions.x.depth / 2 - tableTopDimensions.depth / 2,
+  axis: 'x',
+});
+addCushion({
+  x: tableTopDimensions.width / 2 + cushionDimensions.y.width / 2,
+  z: cushionDimensions.y.depth / 2 - tableTopDimensions.depth / 2,
+  axis: 'y',
+});
+addCushion({
+  x: -(tableTopDimensions.width / 2 + cushionDimensions.y.width / 2),
+  z: cushionDimensions.y.depth / 2 - tableTopDimensions.depth / 2,
+  axis: 'y',
+});
+
 function render() {
   requestAnimationFrame(render);
   controls.update();
@@ -84,6 +106,28 @@ function addTableFoot({ x = 0, y = 0, z = 0 } = {}) {
   tableFoot.position.x = x;
   tableFoot.position.y = y;
   tableFoot.position.z = z;
+}
+
+function addCushion({ x = 0, y = 0, z = 0, axis } = {}) {
+  let cushion = new THREE.Mesh(
+    axis === 'x'
+      ? new THREE.BoxBufferGeometry(
+          cushionDimensions.x.width,
+          cushionDimensions.x.height,
+          cushionDimensions.x.depth
+        )
+      : new THREE.BoxBufferGeometry(
+          cushionDimensions.y.width,
+          cushionDimensions.y.height,
+          cushionDimensions.y.depth
+        ),
+    new THREE.MeshBasicMaterial({ color: 'black' })
+  );
+
+  tableTop.add(cushion);
+  cushion.position.x = x;
+  cushion.position.y = y;
+  cushion.position.z = z;
 }
 
 render();
